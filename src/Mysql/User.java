@@ -30,6 +30,12 @@ public class User {
         this.id = _id;
         this.username = _username;
     }
+    public String getUsername(){
+        return username;
+    }
+    public int getId(){
+        return id;
+    }
     public boolean isAuth(){
         if(this.id == 0)
             return false;

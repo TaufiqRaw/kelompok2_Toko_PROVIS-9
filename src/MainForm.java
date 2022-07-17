@@ -21,6 +21,27 @@ public class MainForm extends javax.swing.JFrame {
     public MainForm() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
+        MenuLogout.setVisible(false);
+    }
+    
+    private boolean login(){
+        if(currentUser.isAuth()){
+            MenuLogin.setVisible(false);
+            MenuLogout.setVisible(true);
+            return true;
+        }
+        String username = JOptionPane.showInputDialog(null,"masukkan username anda", "");
+        String password = JOptionPane.showInputDialog(null,"massukkan Password anda", "");
+        currentUser = User.login(username, password);
+        if(currentUser.isAuth()){
+            MenuLogin.setVisible(false);
+            MenuLogout.setVisible(true);
+            return true;
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Username / Password Salah");
+            return false;
+        }
     }
 
     /**
@@ -36,6 +57,7 @@ public class MainForm extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         MenuLogin = new javax.swing.JMenuItem();
+        MenuLogout = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -61,6 +83,14 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         jMenu1.add(MenuLogin);
+
+        MenuLogout.setText("Logout");
+        MenuLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuLogoutActionPerformed(evt);
+            }
+        });
+        jMenu1.add(MenuLogout);
 
         jMenuBar1.add(jMenu1);
 
@@ -99,14 +129,23 @@ public class MainForm extends javax.swing.JFrame {
 
     private void MenuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLoginActionPerformed
         // TODO add your handling code here:
-        String username = JOptionPane.showInputDialog(null,"masukkan username anda", "");
-        String password = JOptionPane.showInputDialog(null,"massukkan Password anda", "");
-        currentUser = User.login(username, password);
-        if(currentUser.isAuth())
-            JOptionPane.showMessageDialog(null, "Selamat Datang "+username);
-        else
-            JOptionPane.showMessageDialog(null, "Username / Password Salah");
+        if(currentUser.isAuth()){
+            JOptionPane.showMessageDialog(null, "Anda sudah login dengan username");
+        }
+        if(login()){
+            JOptionPane.showMessageDialog(null, "Selamat Datang "+currentUser.getUsername());
+        }
     }//GEN-LAST:event_MenuLoginActionPerformed
+
+    private void MenuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLogoutActionPerformed
+        // TODO add your handling code here:
+        if(currentUser.isAuth()){
+            currentUser = new User();
+            MenuLogin.setVisible(true);
+            MenuLogout.setVisible(false);
+            JOptionPane.showMessageDialog(null, "Berhasil Logout");
+        }
+    }//GEN-LAST:event_MenuLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,6 +185,7 @@ public class MainForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Desktop;
     private javax.swing.JMenuItem MenuLogin;
+    private javax.swing.JMenuItem MenuLogout;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
