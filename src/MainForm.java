@@ -1,6 +1,7 @@
 
-import form.FormTransaksi;
-
+import Mysql.User;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,6 +14,7 @@ import form.FormTransaksi;
  */
 public class MainForm extends javax.swing.JFrame {
 
+    private User currentUser = new User();
     /**
      * Creates new form MainForm
      */
@@ -33,8 +35,9 @@ public class MainForm extends javax.swing.JFrame {
         Desktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        MenuLogin = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        MenuTransaksi = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,18 +52,27 @@ public class MainForm extends javax.swing.JFrame {
             .addGap(0, 269, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("File");
+        jMenu1.setText("Akun");
+
+        MenuLogin.setText("Login");
+        MenuLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuLoginActionPerformed(evt);
+            }
+        });
+        jMenu1.add(MenuLogin);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Kelola");
 
-        MenuTransaksi.setText("Transaksi");
-        MenuTransaksi.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem1.setText("Transaksi");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuTransaksiActionPerformed(evt);
+                jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu2.add(MenuTransaksi);
+        jMenu2.add(jMenuItem1);
 
         jMenuBar1.add(jMenu2);
 
@@ -80,12 +92,21 @@ public class MainForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void MenuTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuTransaksiActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        FormTransaksi fTransaksi = new FormTransaksi();
-        Desktop.add(fTransaksi);
-        fTransaksi.setVisible(true);
-    }//GEN-LAST:event_MenuTransaksiActionPerformed
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void MenuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLoginActionPerformed
+        // TODO add your handling code here:
+        String username = JOptionPane.showInputDialog(null,"masukkan username anda", "");
+        String password = JOptionPane.showInputDialog(null,"massukkan Password anda", "");
+        currentUser = User.login(username, password);
+        if(currentUser.isAuth())
+            JOptionPane.showMessageDialog(null, "Selamat Datang "+username);
+        else
+            JOptionPane.showMessageDialog(null, "Username / Password Salah");
+    }//GEN-LAST:event_MenuLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,9 +145,10 @@ public class MainForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Desktop;
-    private javax.swing.JMenuItem MenuTransaksi;
+    private javax.swing.JMenuItem MenuLogin;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
 }
