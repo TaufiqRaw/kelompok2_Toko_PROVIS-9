@@ -87,8 +87,8 @@ private String SQL;
     }//GEN-LAST:event_ExitbtnActionPerformed
 public void TampilData() {
         DftTblModel_barang = new DefaultTableModel();
-        DftTblModel_barang.addColumn("ID BARANG");
-        DftTblModel_barang.addColumn("NAMA BARANG ");
+        DftTblModel_barang.addColumn("CATEGORY ID ");
+        DftTblModel_barang.addColumn("CATEGORY TYPE ");
         DftTblModel_barang.addColumn("DESKRIPSI");
         jtbl.setModel(DftTblModel_barang);
         Connection conn = CategoryConnect.getConnection();

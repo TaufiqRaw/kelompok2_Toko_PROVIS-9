@@ -10,18 +10,22 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
  * @author ASUS
  */
 public class FormmCategory extends javax.swing.JFrame {
-
+private DefaultTableModel DftTblModel_barang;
+private String SQL; 
     /**
      * Creates new form FormmCategory
      */
     public FormmCategory() {
         initComponents();
+         this.TampilData();
     }
 
     /**
@@ -33,6 +37,7 @@ public class FormmCategory extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -46,13 +51,30 @@ public class FormmCategory extends javax.swing.JFrame {
         desctxt = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        idhapustxt = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        btnhapus = new javax.swing.JButton();
+        Clearbtn1 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtbl = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        nametxt1 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        desctxt1 = new javax.swing.JTextArea();
+        Edibtn = new javax.swing.JButton();
+        Clearbtn2 = new javax.swing.JButton();
         btnstok = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Item ID        :");
+        jLabel1.setText("Category ID     :");
 
-        jLabel2.setText("Name           :");
+        jLabel2.setText("Category Type :");
 
         idtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,7 +113,7 @@ public class FormmCategory extends javax.swing.JFrame {
         desctxt.setRows(5);
         jScrollPane1.setViewportView(desctxt);
 
-        jLabel6.setText("Description  :");
+        jLabel6.setText("Description       :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -99,27 +121,30 @@ public class FormmCategory extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel6))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nametxt)
-                            .addComponent(jScrollPane1)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel6))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nametxt)
+                                    .addComponent(jScrollPane1)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 307, Short.MAX_VALUE)
+                                .addComponent(Updatebtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Clearbtn)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Exitbtn)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(idtxt))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 307, Short.MAX_VALUE)
-                        .addComponent(Updatebtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Clearbtn)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Exitbtn)
-                .addContainerGap())
+                        .addComponent(idtxt)
+                        .addGap(67, 67, 67))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,20 +170,155 @@ public class FormmCategory extends javax.swing.JFrame {
                     .addComponent(Exitbtn)))
         );
 
-        jTabbedPane1.addTab("Add", jPanel1);
+        jTabbedPane1.addTab("Tambah", jPanel1);
+
+        idhapustxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idhapustxtActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Tuliskan Category ID Yang Ingin Dihapus :");
+
+        btnhapus.setText("Hapus");
+        btnhapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhapusActionPerformed(evt);
+            }
+        });
+
+        Clearbtn1.setText("Reset");
+        Clearbtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Clearbtn1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 514, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(160, 160, 160)
+                .addComponent(Clearbtn1)
+                .addGap(64, 64, 64)
+                .addComponent(btnhapus)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(idhapustxt, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(162, 162, 162))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 347, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabel3)
+                .addGap(34, 34, 34)
+                .addComponent(idhapustxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnhapus)
+                    .addComponent(Clearbtn1))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel2);
+        jTabbedPane1.addTab("Hapus", jPanel2);
+
+        jtbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jtbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jtbl);
+
+        jLabel5.setText("Category Type :");
+
+        nametxt1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nametxt1ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Description       :");
+
+        desctxt1.setColumns(20);
+        desctxt1.setRows(5);
+        jScrollPane3.setViewportView(desctxt1);
+
+        Edibtn.setText("Edit");
+        Edibtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EdibtnActionPerformed(evt);
+            }
+        });
+
+        Clearbtn2.setText("Reset");
+        Clearbtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Clearbtn2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Clearbtn2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Edibtn)
+                .addGap(42, 42, 42))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3)
+                            .addComponent(nametxt1))))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(nametxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Edibtn)
+                    .addComponent(Clearbtn2))
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Edit", jPanel3);
 
         btnstok.setText("Lihat Stock");
         btnstok.addActionListener(new java.awt.event.ActionListener() {
@@ -167,23 +327,33 @@ public class FormmCategory extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setText("Category");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnstok)
+                        .addGap(20, 20, 20))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnstok)
-                .addGap(20, 20, 20))
+                .addComponent(jLabel8)
+                .addGap(245, 245, 245))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(82, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(btnstok)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,6 +398,7 @@ public class FormmCategory extends javax.swing.JFrame {
             stmt.setString(2, nametxt.getText());
             stmt.setString(3, desctxt.getText());
             stmt.executeUpdate();
+            TampilData();
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan", "Pesan", JOptionPane.INFORMATION_MESSAGE);
   
         } catch (SQLException e) {
@@ -235,9 +406,70 @@ public class FormmCategory extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_UpdatebtnActionPerformed
 
+    
+    private void idhapustxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idhapustxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idhapustxtActionPerformed
+
+    private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
+        // TODO add your handling code here:
+        Connection conn = CategoryConnect.getConnection();
+        int confirm = JOptionPane.showConfirmDialog(null, "Apakah anda yakin ingin menghapus data tersebut?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (confirm == 0) {
+            try {
+                java.sql.PreparedStatement stmt = conn.prepareStatement("delete from categories where id ='" + idhapustxt.getText() + "'");
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Data berhasil dihapus", "Pesan", JOptionPane.INFORMATION_MESSAGE);
+                idhapustxt.setText("");
+                TampilData();   
+                idhapustxt.requestFocus();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Data gagal di hapus" + e.getMessage(), "Pesan", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnhapusActionPerformed
+
+    private void nametxt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nametxt1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nametxt1ActionPerformed
+
+    private void jtblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblMouseClicked
+        // TODO add your handling code here:
+        int baris = jtbl.getSelectedRow();
+    nametxt1.setText(DftTblModel_barang.getValueAt(baris, 1).toString());
+    desctxt1.setText(DftTblModel_barang.getValueAt(baris, 2).toString());
+    }//GEN-LAST:event_jtblMouseClicked
+
+    private void EdibtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdibtnActionPerformed
+        // TODO add your handling code here:
+        try {
+            Connection conn = CategoryConnect.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("update categories set name=?, desc=? where id=?");
+            stmt.setString(1, nametxt1.getText());
+            stmt.setString(2, desctxt1.getText());
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Data berhasil diubah", "Pesan", JOptionPane.INFORMATION_MESSAGE);
+            TampilData();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_EdibtnActionPerformed
+
+    private void Clearbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Clearbtn1ActionPerformed
+        // TODO add your handling code here:
+        idhapustxt.setText("");
+    }//GEN-LAST:event_Clearbtn1ActionPerformed
+
+    private void Clearbtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Clearbtn2ActionPerformed
+        // TODO add your handling code here:
+        nametxt1.setText("");
+        desctxt1.setText("");
+    }//GEN-LAST:event_Clearbtn2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -269,21 +501,60 @@ public class FormmCategory extends javax.swing.JFrame {
             }
         });
     }
+    public void TampilData() {
+        DftTblModel_barang = new DefaultTableModel();
+        DftTblModel_barang.addColumn("CATEGORY ID");
+        DftTblModel_barang.addColumn("CATEGORY TYPE");
+        DftTblModel_barang.addColumn("DESKRIPSI");
+        jtbl.setModel(DftTblModel_barang);
+        Connection conn = CategoryConnect.getConnection();
+        try {
+            java.sql.Statement stmt = conn.createStatement();
+            SQL = "select * from categories";
+            java.sql.ResultSet res = stmt.executeQuery(SQL);
+            while (res.next()) {
+                DftTblModel_barang.addRow(new Object[]{
+                    res.getInt("id"),
+                    res.getString("name"),
+                    res.getString("description"),
+                });
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Clearbtn;
+    private javax.swing.JButton Clearbtn1;
+    private javax.swing.JButton Clearbtn2;
+    private javax.swing.JButton Edibtn;
     private javax.swing.JButton Exitbtn;
     private javax.swing.JButton Updatebtn;
+    private javax.swing.JButton btnhapus;
     private javax.swing.JButton btnstok;
     private javax.swing.JTextArea desctxt;
+    private javax.swing.JTextArea desctxt1;
+    private javax.swing.JTextField idhapustxt;
     private javax.swing.JTextField idtxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jtbl;
     private javax.swing.JTextField nametxt;
+    private javax.swing.JTextField nametxt1;
     // End of variables declaration//GEN-END:variables
 }
