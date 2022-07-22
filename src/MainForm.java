@@ -1,5 +1,5 @@
 
-import Mysql.User;
+import Util.User;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 /*
@@ -20,27 +20,19 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
-        MenuLogout.setVisible(false);
+        TabUtama.remove(PanelUtama);
     }
     
-    private boolean login(){
-        if(currentUser.isAuth()){
-            MenuLogin.setVisible(false);
-            MenuLogout.setVisible(true);
-            return true;
-        }
-        String username = JOptionPane.showInputDialog(null,"masukkan username anda", "");
-        String password = JOptionPane.showInputDialog(null,"massukkan Password anda", "");
+    private void login(){
+        String username = TxtUser.getText();
+        String password = TxtPass.getText();
         currentUser = User.login(username, password);
         if(currentUser.isAuth()){
-            MenuLogin.setVisible(false);
-            MenuLogout.setVisible(true);
-            return true;
+            TabUtama.remove(PanelLogin);
+            TabUtama.add("Menu", PanelUtama);
         }
         else{
             JOptionPane.showMessageDialog(null, "Username / Password Salah");
-            return false;
         }
     }
 
@@ -53,99 +45,132 @@ public class MainForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Desktop = new javax.swing.JDesktopPane();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        MenuLogin = new javax.swing.JMenuItem();
-        MenuLogout = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        TabUtama = new javax.swing.JTabbedPane();
+        PanelUtama = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        PanelLogin = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        TxtUser = new javax.swing.JTextField();
+        TxtPass = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        BtnLogin = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
-        Desktop.setLayout(DesktopLayout);
-        DesktopLayout.setHorizontalGroup(
-            DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        jButton2.setText("Kelola Transaksi");
+
+        jButton1.setText("Kelola User");
+
+        jButton3.setText("Kelola Kategori");
+
+        jButton4.setText("Kelola Produk");
+
+        javax.swing.GroupLayout PanelUtamaLayout = new javax.swing.GroupLayout(PanelUtama);
+        PanelUtama.setLayout(PanelUtamaLayout);
+        PanelUtamaLayout.setHorizontalGroup(
+            PanelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelUtamaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
-        DesktopLayout.setVerticalGroup(
-            DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 269, Short.MAX_VALUE)
+        PanelUtamaLayout.setVerticalGroup(
+            PanelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelUtamaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addGap(16, 16, 16)
+                .addComponent(jButton3)
+                .addGap(18, 18, 18)
+                .addComponent(jButton4)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("Akun");
+        TabUtama.addTab("Menu", PanelUtama);
 
-        MenuLogin.setText("Login");
-        MenuLogin.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setText("Username");
+
+        TxtUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuLoginActionPerformed(evt);
+                TxtUserActionPerformed(evt);
             }
         });
-        jMenu1.add(MenuLogin);
 
-        MenuLogout.setText("Logout");
-        MenuLogout.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setText("Password");
+
+        BtnLogin.setText("Login");
+        BtnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuLogoutActionPerformed(evt);
+                BtnLoginActionPerformed(evt);
             }
         });
-        jMenu1.add(MenuLogout);
 
-        jMenuBar1.add(jMenu1);
+        javax.swing.GroupLayout PanelLoginLayout = new javax.swing.GroupLayout(PanelLogin);
+        PanelLogin.setLayout(PanelLoginLayout);
+        PanelLoginLayout.setHorizontalGroup(
+            PanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelLoginLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TxtUser)
+                    .addComponent(TxtPass)
+                    .addGroup(PanelLoginLayout.createSequentialGroup()
+                        .addGroup(PanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(BtnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        PanelLoginLayout.setVerticalGroup(
+            PanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelLoginLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TxtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TxtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(BtnLogin)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-        jMenu2.setText("Kelola");
-
-        jMenuItem1.setText("Transaksi");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
+        TabUtama.addTab("User", PanelLogin);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Desktop)
+            .addComponent(TabUtama, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Desktop)
+            .addComponent(TabUtama, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void TxtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtUserActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_TxtUserActionPerformed
 
-    private void MenuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLoginActionPerformed
+    private void BtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLoginActionPerformed
         // TODO add your handling code here:
-        if(currentUser.isAuth()){
-            JOptionPane.showMessageDialog(null, "Anda sudah login dengan username");
-        }
-        if(login()){
-            JOptionPane.showMessageDialog(null, "Selamat Datang "+currentUser.getUsername());
-        }
-    }//GEN-LAST:event_MenuLoginActionPerformed
-
-    private void MenuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLogoutActionPerformed
-        // TODO add your handling code here:
-        if(currentUser.isAuth()){
-            currentUser = new User();
-            MenuLogin.setVisible(true);
-            MenuLogout.setVisible(false);
-            JOptionPane.showMessageDialog(null, "Berhasil Logout");
-        }
-    }//GEN-LAST:event_MenuLogoutActionPerformed
+        login();
+    }//GEN-LAST:event_BtnLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,12 +208,17 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane Desktop;
-    private javax.swing.JMenuItem MenuLogin;
-    private javax.swing.JMenuItem MenuLogout;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JToggleButton BtnLogin;
+    private javax.swing.JPanel PanelLogin;
+    private javax.swing.JPanel PanelUtama;
+    private javax.swing.JTabbedPane TabUtama;
+    private javax.swing.JTextField TxtPass;
+    private javax.swing.JTextField TxtUser;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
