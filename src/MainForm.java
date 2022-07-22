@@ -1,6 +1,6 @@
 
 import Mysql.User;
-import form.FormCategory;
+import form.FormmCategory;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 /*
@@ -158,9 +158,8 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuLogoutActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-        FormCategory fCategory = new FormCategory();
-        Desktop.add(fCategory);
+            // TODO add your handling code here:
+        FormmCategory fCategory = new FormmCategory();
         fCategory.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 

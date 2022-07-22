@@ -20,7 +20,7 @@ import javax.xml.bind.DatatypeConverter;
  *
  * @author Taufiq
  */
-public class User {
+public class User { 
     private int id;
     private String username;
     public User(){
