@@ -5,6 +5,12 @@
  */
 package form;
 
+import Mysql.CategoryConnect;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ASUS
@@ -61,6 +67,11 @@ public class FormmCategory extends javax.swing.JFrame {
         });
 
         Updatebtn.setText("Update");
+        Updatebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdatebtnActionPerformed(evt);
+            }
+        });
 
         Clearbtn.setText("Clear");
         Clearbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -207,6 +218,22 @@ public class FormmCategory extends javax.swing.JFrame {
     private void idtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idtxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_idtxtActionPerformed
+
+    private void UpdatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatebtnActionPerformed
+        // TODO add your handling code here:
+        try {
+             Connection conn = CategoryConnect.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("insert into categories(id, name, description) values(?,?,?)");
+            stmt.setInt(1, Integer.parseInt(idtxt.getText ()));
+            stmt.setString(2, nametxt.getText());
+            stmt.setString(3, desctxt.getText());
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Data berhasil disimpan", "Pesan", JOptionPane.INFORMATION_MESSAGE);
+  
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_UpdatebtnActionPerformed
 
     /**
      * @param args the command line arguments
